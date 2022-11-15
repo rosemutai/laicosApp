@@ -7,6 +7,8 @@ import './index.css';
 
 import Home from './routes/Home';
 import Signup from './routes/Signup';
+import Login from './routes/Login';
+import Profile from './routes/Profile';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -20,7 +22,20 @@ const router = createBrowserRouter([
     path: '/signup',
     element: <Signup />
 
-  }
+  },
+
+  {
+    path: '/login',
+    element: <Login />
+
+  },
+
+  {
+    path: '/myprofile',
+    element: <Profile />
+
+  },
+
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
