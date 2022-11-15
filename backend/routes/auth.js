@@ -32,14 +32,21 @@ router.post('/signup', async(req, res) =>{
         res.json({success: false, message: "Email already in use"})
     }
     else{
-        const newUser = new User({
-            email,
-            username,
-            hashedPassword
-        })
-        newUser.save()
-        res.json({success: true, message: "Account created successfully"})
-        res.redirect('/login')
+        try{
+            const newUser = new User({
+                email: req.body.email,
+                username: req.body.username,
+                password: hashedPassword
+            })
+            newUser.save()
+            console.log("newuser: ", newUser)
+            res.json({success: true, message: "Account created successfully"})
+            //res.redirect('/login')
+        }
+        catch (error){
+            console.log(error)
+
+        }
         
     }
         
