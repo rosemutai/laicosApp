@@ -6,6 +6,7 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const LocalStrategy = require('passport-local').Strategy;
+require ('./config/passport')
 require('dotenv').config()
 
 const User = require('./models/users')
@@ -43,8 +44,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()))
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+
 
 // use routes
 app.use('/api/users', authRouter)
