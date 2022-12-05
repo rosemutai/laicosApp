@@ -34,7 +34,7 @@ const Signup = () => {
         e.preventDefault()
         if(email && username && password){
             const res = await axios.post('http://localhost:3001/api/users/signup', {email, username, password})
-            console.log(res)
+            console.log(res.data)
             setIsSubmitted(true)
             setError(false)
             resetForm()
