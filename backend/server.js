@@ -11,8 +11,7 @@ require('dotenv').config()
 
 const User = require('./models/users')
 
-// import routes
-const authRouter = require('./routes/auth')
+
 
 const port = process.env.PORT
 const MONGOURL = process.env.MONGOURI
@@ -43,11 +42,14 @@ app.use(session({
 
 app.use(passport.initialize())
 app.use(passport.session())
-passport.use(new LocalStrategy(User.authenticate()))
+// passport.use(new LocalStrategy(User.authenticate()))
 
 
+// import routes
+const authRouter = require('./routes/auth')
 // use routes
 app.use('/api/users', authRouter)
+
 
 // connect to mongo db
 mongoose.connect(MONGOURL)
