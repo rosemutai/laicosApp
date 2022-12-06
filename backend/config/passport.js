@@ -6,7 +6,7 @@ const validPassword = require('../lib/passportUtil').validPassword
 
 const verifyCallback = async (username, password, done) =>{
 
-    const user = await User.findOne({username: username})
+    const user = await User.findOne({username: username}, 'username salt hash')
 
     if(!user) { return done(null, false)}
     const isValid = validPassword(password, user.hash, user.salt)
@@ -21,6 +21,8 @@ const verifyCallback = async (username, password, done) =>{
 
 const strategy = new LocalStrategy(verifyCallback)
 passport.use(strategy)
+
+
 
 
 passport.serializeUser((user, done) =>{
