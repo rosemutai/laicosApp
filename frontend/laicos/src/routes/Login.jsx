@@ -16,13 +16,14 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const handleFormSubmit =  async (e) =>{
+    const handleFormSubmit =  (e) =>{
         e.preventDefault()
+        
 
-        await axios.post('http://localhost:3001/api/users/login', {username, password})
+         axios.post('http://localhost:3001/api/users/login', {username, password})
                
-        .then(response =>
-            console.log(response.data),
+        .then((response) =>
+            console.log("Result: ", response.data),
             navigate('/myprofile')
         )
         .catch((error) =>
