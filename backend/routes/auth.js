@@ -6,28 +6,32 @@ const connectEnsureLogin = require('connect-ensure-login');
 const User = require('../models/users')
 const validPassword = require('../lib/passportUtil').genPassword
 
-checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) { 
-    //console.log(req.username)
-    return next() }
-  res.redirect("/login")
+const isLoggedIn = (req, res, done) => {
+  if (req.user) { 
+    
+    return done() 
+  }
+  return res.redirect("/login")
 }
 
 // profile route
-router.get('/profile', checkAuthenticated, (req, res) => {
+router.get('/profile', isLoggedIn,  (req, res) => {
     res.status(200).json({msg: "profile"})
 
     console.log(req.user.username)
+    // console.log(req.session.passport.user)
 })
 
 
 // login route
-router.post('/login', passport.authenticate('local', {
-
-    successRedirect: '/profile',
-    failureRedirect: '/login',
-   
-}))
+router.post(
+  '/login', 
+  passport.authenticate('local'),
+  (req, res) => {
+    res.json(req.user);
+    // res.redirect('/profile')
+  }
+  )
 
 // logout route
 router.post('/logout', function(req, res, next) {
