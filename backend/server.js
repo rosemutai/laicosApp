@@ -2,12 +2,15 @@ const express = require('express')
 const mongoose  = require('mongoose')
 const cors = require('cors')
 const logger = require('morgan')
-const passport = require('passport')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
-const LocalStrategy = require('passport-local').Strategy;
 require ('./config/passport')
 require('dotenv').config()
+
+//passport
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+const {verifyCallback} = require('./config/passport')
 
 const User = require('./models/users')
 
@@ -39,10 +42,23 @@ app.use(session({
     store: store
 }))
 
-
+// passport js
 app.use(passport.initialize())
 app.use(passport.session())
-// passport.use(new LocalStrategy(User.authenticate()))
+const strategy = new LocalStrategy(verifyCallback)
+passport.use(strategy)
+
+passport.serializeUser((user, done) =>{
+    done(null, user.id)
+});
+
+passport.deserializeUser((userId, done) =>{
+    User.findById(userId)
+        .then(user =>{
+            done(null, user)
+        })
+        .catch(err => done(err))
+});
 
 
 // import routes
