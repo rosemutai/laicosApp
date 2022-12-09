@@ -45,20 +45,24 @@ app.use(session({
 // passport js
 app.use(passport.initialize())
 app.use(passport.session())
-const strategy = new LocalStrategy(verifyCallback)
-passport.use(strategy)
+// const strategy = new LocalStrategy(verifyCallback)
+// passport.use(strategy)
+passport.use(User.createStrategy());
 
-passport.serializeUser((user, done) =>{
-    done(null, user.id)
-});
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-passport.deserializeUser((userId, done) =>{
-    User.findById(userId)
-        .then(user =>{
-            done(null, user)
-        })
-        .catch(err => done(err))
-});
+// passport.serializeUser((user, done) =>{
+//     done(null, user.id)
+// });
+
+// passport.deserializeUser((userId, done) =>{
+//     User.findById(userId)
+//         .then(user =>{
+//             done(null, user)
+//         })
+//         .catch(err => done(err))
+// });
 
 
 // import routes
