@@ -6,32 +6,44 @@ const connectEnsureLogin = require('connect-ensure-login');
 const User = require('../models/users')
 const validPassword = require('../lib/passportUtil').genPassword
 
-const isLoggedIn = (req, res, done) => {
-  if (req.user) { 
-    
-    return done() 
+// const isLoggedIn = (req, res, done) => {
+//   if (req.user) { 
+//     return done() 
+//   }
+//   return res.redirect("/login")
+// }
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
   }
-  return res.redirect("/login")
+  req.session.reqUrl = req.originalUrl;
+  res.redirect('/login');
 }
 
+
 // profile route
-router.get('/profile', isLoggedIn,  (req, res) => {
-    res.status(200).json({msg: "profile"})
-
-    console.log(req.user.username)
-    // console.log(req.session.passport.user)
-})
-
+router.get('/dashboard', checkAuthenticated, (req, res, next) => {
+  console.log("req.user: ", req.user.username);
+  res.send("profile");
+});
 
 // login route
-router.post(
-  '/login', 
-  passport.authenticate('local'),
-  (req, res) => {
-    res.json(req.user);
-    // res.redirect('/profile')
+router.post('/login',
+  passport.authenticate('local', {
+    // successRedirect: '/dashboard',
+    failureRedirect: '/login',
+    failureFlash: true
+  }),
+  function (req, res) {
+    let redirectTo = '/dashboard';
+    if (req.session.reqUrl) {
+      redirectTo = req.session.reqUrl; // If our redirect value exists in the session, use that.
+      req.session.reqUrl = null; // Once we've used it, dump the value to null before the redirect.
+    }
+    res.redirect(redirectTo);
   }
-  )
+);
 
 // logout route
 router.post('/logout', function(req, res, next) {
