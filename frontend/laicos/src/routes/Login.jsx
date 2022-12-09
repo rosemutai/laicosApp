@@ -20,10 +20,10 @@ const Login = () => {
         e.preventDefault()
         
 
-         axios.post('http://localhost:3001/api/users/login', {username, password})
+        axios.post('http://localhost:3001/api/users/login', {username, password})
                
         .then((response) =>
-            console.log("Result: ", response.data),
+            console.log("Result: ", response),
             navigate('/myprofile')
         )
         .catch((error) =>
@@ -34,9 +34,9 @@ const Login = () => {
 
   return (
     <div className='w-full  h-screen  pt-12'>
-        <div className='w-full bg-[#A0BCC2] md:w-1/4 md:h-3/4  md:mx-auto rounded-md'>
+        <div className='w-full bg-[#F0DBDB] md:w-1/4 md:h-3/4  md:mx-auto rounded-md'>
             <form  onSubmit={handleFormSubmit} className='login-form md:flex md:flex-col md:h-full md:justify-evenly
-                p-3 bg-[#A0BCC2] '>
+                p-3 bg-light-purple '>
                 <input 
                     type='text' 
                     value={username}
@@ -52,15 +52,15 @@ const Login = () => {
                     className='w-ful rounded-md p-2 focus:outline-0 focus:shadow 
                     focus:shadow-[#F9EBC8]' 
                     placeholder='Password'/>
-                <button type='submit' className='submit-btn bg-[#F9EBC8] md:2 p-2 rounded-lg 
-                    mx-uto text-slate-400 tracking-wider  hover:shadow hover:shadow-[#F9EBC8] hover:transition-all'>Login
+                <button type='submit' className='submit-btn bg-purple md:2 p-2 rounded-lg 
+                    mx-uto text-light-purple tracking-wider  hover:shadow hover:shadow-purple hover:transition-all'>Login
                 </button>
-                <a href='/' className='text-center text-[#F9EBC8]'>Forgotten password?</a>
+                <a href='/' className='text-center text-purple'>Forgotten password?</a>
             </form>
             <div className='link-to-signup md:mt-7 md:w-full md:mx-auto text-center'>
-                <p className='text-[#A0BCC2] md:my-3'>Don't have an account</p>
+                <p className='text-purple md:my-3'>Don't have an account</p>
                 <a href='/signup' className='text-center md:w-1/4 rounded-lg px-4 py-2 
-                    md:mt-2 text-[#F9EBC8] bg-[#A0BCC2]'>create account</a>
+                    md:mt-2 text-light-purple bg-purple'>create account</a>
 
             </div>
         </div>
