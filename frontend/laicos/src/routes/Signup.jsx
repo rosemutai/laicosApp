@@ -61,7 +61,7 @@ const Signup = () => {
   return (
      <div className='w-full  h-screen  pt-12'>
         <form onSubmit={onFormSubmit} className='login-form md:flex md:flex-col md:justify-evenly md:w-1/4 md:h-3/4  md:mx-auto rounded-md
-            p-3 bg-[#A0BCC2] '>
+            p-3 bg-light-purple'>
 
             {error && 
                 <div  className='w-ful rounded-md p-2 focus:outline-0 border-2 border-red-700
@@ -108,15 +108,15 @@ const Signup = () => {
                 focus:shadow-[#F9EBC8]' 
             />
              */}
-            <button type='submit' className='submit-btn bg-[#F9EBC8] md:2 p-2 rounded-lg 
-                mx-uto text-slate-400 tracking-wider  hover:shadow hover:shadow-[#F9EBC8] 
+            <button type='submit' className='submit-btn bg-purple md:2 p-2 rounded-lg 
+                mx-uto text-light-purple tracking-wider  hover:shadow hover:shadow-purple 
                 hover:transition-all'>Sign Up
             </button>
 
             <div className='link-to-signup md:mt-4 md:w-full md:mx-auto text-center'>
-                <p className='text-[#F9EBC8] md:my-3'>Already have an account? </p>
+                <p className='text-purple md:my-3'>Already have an account? </p>
                 <a href='/signup' className='text-center md:w-1/4 rounded-lg px-4 
-                    py-2 md:mt-2 text-[#F9EBC8] bg-[#A0BCC2]'>Login</a>
+                    py-2 md:mt-2 text-light-purple bg--purple'>Login</a>
 
             </div>
         </form>
