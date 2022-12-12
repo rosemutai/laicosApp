@@ -15,22 +15,29 @@ const UserSchema =new Schema({
         unique: true
     },
 
-    hash: {
-        type: String,
-        required: true,
-        
-    },
-
-    salt: {
+    
+    password: {
         type: String,
         required: true,
         
     }
 
+    // hash: {
+    //     type: String,
+    //     required: true,
+        
+    // },
+
+    // salt: {
+    //     type: String,
+    //     required: true,
+        
+    // }
+
 
    
 })
 
-UserSchema.plugin(passportLocalMongoose)
+// UserSchema.plugin(passportLocalMongoose)
 
 module.exports = mongoose.model('User', UserSchema)
