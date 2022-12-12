@@ -33,7 +33,7 @@ const Signup = () => {
     const onFormSubmit = async (e) =>{
         e.preventDefault()
         if(email && username && password){
-            await axios.post('http://localhost:3001/api/users/signup', {email, username, password})
+            await axios.post('http://localhost:3001/api/users/register', {email, username, password})
             .then(result => console.log(result.data),
                 setIsSubmitted(true),
                 setError(false),
